@@ -91,6 +91,7 @@ async function processFile() {
     const { code } = generate(parsedCode, {
         sourceMaps: false,
         comments: true,
+        retainLines: true,
     }, inputCode);
 
     // Write the code to the output file

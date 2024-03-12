@@ -113,6 +113,8 @@ async function processFile() {
     const { code } = (0, generator_1.default)(parsedCode, {
         sourceMaps: false,
         comments: true,
+        retainLines: true,
+        retainFunctionParens: true,
     }, inputCode);
     // Write the code to the output file
     await fs.writeFile(outputFilePath, code);
