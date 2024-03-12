@@ -62,7 +62,7 @@ async function getTailwindClasses(quasi) {
 function createComponent(tagName, twClasses) {
     const attributes = twClasses.map((cls) => `${cls}`).join(' ');
     const jsxCode = `<${tagName} className="${attributes}">{children}</${tagName}>`;
-    const functionCode = `function ({ children }: React.PropsWithChildren) {\n  return ${jsxCode};\n}`;
+    const functionCode = `({ children }: React.PropsWithChildren): JSX.Element => {\n  return ${jsxCode};\n}`;
     return parser.parseExpression(functionCode, {
         sourceType: 'module',
         plugins: [

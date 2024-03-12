@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Styled component for the div
-const StyledDiv = function ({
+const StyledDiv = ({
   children
-}: React.PropsWithChildren) {
+}: React.PropsWithChildren): JSX.Element => {
   return <div className="bg-[#f0f0f0] p-[20px]">{children}</div>;
 };
 
 // Styled component for the button
-const StyledButton = function ({
+const StyledButton = ({
   children
-}: React.PropsWithChildren) {
+}: React.PropsWithChildren): JSX.Element => {
   return <button className="bg-[#007bff] text-white cursor-pointer text-[16px] transition-[background-color] duration-[0.3s] ease-[ease] px-[20px] py-[10px] rounded-[5px] border-[none] hover:bg-[#0056b3]">{children}</button>;
 };
 
