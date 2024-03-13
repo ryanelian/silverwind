@@ -127,6 +127,13 @@ async function getTailwindClasses(node: TaggedTemplateExpression): Promise<strin
             }
         }
     });
+
+    // Regular expression to match "& > element" or "&&" or "& element"
+    const regex = /&\s*(?:>\s*)?[a-zA-Z*][a-zA-Z0-9-]*/g;
+    if (regex.test(css)) {
+        unsupported = true;
+    }   
+
     if (unsupported) {
         return [];
     }

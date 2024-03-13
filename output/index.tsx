@@ -44,6 +44,25 @@ const TomatoButton = styled(ComplexButton)`
   border-color: tomato;
 `;
 
+// A table body with child td selector
+export const Tbody = styled.tbody`
+  color: #666;
+  & > td {
+    text-align: left;
+    padding: 20px;
+    vertical-align: top;
+    border-top: 0;
+  }
+`;
+
+// A section body with child selector
+export const SectionMargin = styled.section`
+  background-color: #666;
+  & * {
+    margin-bottom: 4px;
+  }
+`;
+
 // Component using the styled components
 const MyComponent = () => {
   return <StyledDiv>
