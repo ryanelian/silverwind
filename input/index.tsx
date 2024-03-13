@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Color } from "./Color";
 
 // Styled component for the div
 const StyledDiv = styled.div`
@@ -36,6 +37,12 @@ const ComplexButton = styled.button<{ $primary?: boolean; }>`
   border-radius: 3px;
 `;
 
+// A styled component with external variables
+const SemanticRedSpan = styled.span`
+  color: ${Color.SemanticRed600};
+  background-color: ${Color.SemanticGreen600};
+`;
+
 // A new component based on Button, but with some override styles
 const TomatoButton = styled(ComplexButton)`
   color: tomato;
@@ -51,6 +58,7 @@ const MyComponent = () => {
       <StyledButton>Click Me</StyledButton>
       <ComplexButton $primary>Test</ComplexButton>
       <TomatoButton>I'm a Tomato</TomatoButton>
+      <SemanticRedSpan>Red</SemanticRedSpan>
     </StyledDiv>
   );
 };
