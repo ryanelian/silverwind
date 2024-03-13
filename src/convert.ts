@@ -94,7 +94,36 @@ export async function convert(inputFilePath: string, outputFilePath: string) {
     });
 
     // Wait for all promises to resolve
-    await Promise.all(promises);
+    const promiseResults = await Promise.allSettled(promises);
+
+    // If all rejected, there are no changes in the file.
+    const allRejected = promiseResults.every(p => p.status === 'rejected');
+    if (allRejected) {
+        return;
+    }
+
+    // Check if React is imported, if not, add the import statement
+    let reactImported = false;
+    for (const node of parsedCode.program.body) {
+        if (
+            node.type === 'ImportDeclaration' &&
+            node.specifiers.some(specifier => specifier.local.name === 'React')
+        ) {
+            reactImported = true;
+            break;
+        }
+    }
+
+    if (!reactImported) {
+        parsedCode.program.body.unshift({
+            type: 'ImportDeclaration',
+            specifiers: [{
+                type: 'ImportDefaultSpecifier',
+                local: { type: 'Identifier', name: 'React' }
+            }],
+            source: { type: 'StringLiteral', value: 'react' }
+        });
+    }
 
     // Generate the code back from the AST
     const { code } = generate(parsedCode, {

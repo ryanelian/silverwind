@@ -30,16 +30,24 @@ const convert_1 = require("./convert");
 async function scan(inputFolderPath) {
     // Read the files in the input folder
     const files = await fs.readdir(inputFolderPath);
-    // Filter out only the TSX files
-    const tsxFiles = files.filter(file => file.endsWith('.tsx'));
-    // Loop through each TSX file
-    for (const file of tsxFiles) {
+    // Loop through each file
+    for (const file of files) {
         const filePath = path.join(inputFolderPath, file);
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        // Check if the file contains 'styled.'
-        if (fileContent.includes('styled.')) {
-            console.log(`Converting ${filePath}`);
-            await (0, convert_1.convert)(filePath, filePath);
+        const stats = await fs.stat(filePath);
+        // If it's a directory, recursively scan it
+        if (stats.isDirectory()) {
+            await scan(filePath);
+        }
+        else {
+            // If it's a file, check if it's a TSX file
+            if (file.endsWith('.tsx')) {
+                const fileContent = await fs.readFile(filePath, 'utf-8');
+                // Check if the file contains 'styled.'
+                if (fileContent.includes('styled.')) {
+                    console.log(`Converting ${filePath}`);
+                    await (0, convert_1.convert)(filePath, filePath);
+                }
+            }
         }
     }
 }

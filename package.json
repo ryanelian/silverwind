@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "silverwind": "./bin/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc && node ./bin/dev.js",
