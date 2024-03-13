@@ -23,6 +23,7 @@ const StyledButton = styled.button`
   }
 `;
 
+// A styled component that receives props to change its style
 const ComplexButton = styled.button<{ $primary?: boolean; }>`
   /* Adapt the colors based on primary prop */
   background: ${props => props.$primary ? "#BF4F74" : "white"};

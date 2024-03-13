@@ -33,10 +33,19 @@ async function getTailwindClasses(quasi: TemplateLiteral): Promise<string[]> {
 
 // Helper function to create functional component with Tailwind classes
 function createComponentAst(tagName: string, twClasses: string[]): Expression {
-    const attributes = twClasses.map((cls) => `${cls}`).join(' ');
-    const jsxCode = `<${tagName} className="${attributes}">{children}</${tagName}>`;
-    const functionCode = `({ children }: React.PropsWithChildren): JSX.Element => {\n  return ${jsxCode};\n}`;
-    return parser.parseExpression(functionCode, {
+    const classNames = twClasses.map((cls) => `${cls}`).join(' ');
+    const jsxCode = `React.forwardRef(
+    (
+        props: React.ComponentPropsWithoutRef<"${tagName}">,
+        ref: React.ComponentProps<"${tagName}">["ref"]
+    ) => {
+        return <${tagName} className="${classNames}" ref={ref} {...props}></${tagName}>;
+    }
+)
+`;
+    // do NOT add semicolon at the end of the jsxCode, otherwise the parseExpression will error!
+
+    return parser.parseExpression(jsxCode, {
         sourceType: 'module',
         plugins: [
             "jsx",
@@ -91,7 +100,7 @@ export async function convert(inputFilePath: string, outputFilePath: string) {
     const { code } = generate(parsedCode, {
         sourceMaps: false,
         comments: true,
-        retainLines: true,
+        retainLines: false,
     }, inputCode);
 
     // Write the code to the output file
