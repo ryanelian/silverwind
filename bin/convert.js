@@ -161,6 +161,11 @@ async function getTailwindClasses(node) {
     }
     // console.log(css);
     const tw = `.tw {\n${css}\n}`;
+    // const translator = await import('css-to-tailwind-translator');
+    // const result = translator.CssToTailwindTranslator(tw, {
+    // });
+    // console.log(result);
+    // return result.data[0].resultVal.split(' ');
     const twConverter = new css_to_tailwindcss_1.TailwindConverter({
         postCSSPlugins: [require('postcss-nested')],
     });

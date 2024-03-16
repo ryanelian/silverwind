@@ -32,6 +32,7 @@
     "@babel/preset-typescript": "7.23.3",
     "@babel/traverse": "7.24.0",
     "@babel/types": "7.24.0",
+    "css-to-tailwind-translator": "1.2.8",
     "css-to-tailwindcss": "1.0.5",
     "postcss-nested": "6.0.1",
     "react": "18.2.0",

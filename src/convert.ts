@@ -140,6 +140,12 @@ async function getTailwindClasses(node: TaggedTemplateExpression): Promise<strin
     // console.log(css);
 
     const tw = `.tw {\n${css}\n}`;
+    // const translator = await import('css-to-tailwind-translator');
+    // const result = translator.CssToTailwindTranslator(tw, {
+    // });
+    // console.log(result);
+    // return result.data[0].resultVal.split(' ');
+    
     const twConverter = new TailwindConverter({
         postCSSPlugins: [require('postcss-nested')],
     });
